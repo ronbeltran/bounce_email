@@ -1,5 +1,4 @@
-BOUNCE_EMAIL1 = """
-Delivered-To: rbbeltran.09@gmail.com
+BOUNCE_EMAIL1 = """Delivered-To: rbbeltran.09@gmail.com
 Received: by 10.64.103.70 with SMTP id fu6csp65616ieb;
         Fri, 25 May 2012 06:48:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
@@ -71,11 +70,9 @@ To: rbbeltran20032003@yahoo.com
 Content-Type: multipart/alternative; boundary=3D14dae9341241c39ac604c0dca02=
 d
 
-test
-"""
+test"""
 
-BOUNCE_EMAIL2 = """
-Delivered-To: rbbeltran.09@gmail.com
+BOUNCE_EMAIL2 = """Delivered-To: rbbeltran.09@gmail.com
 Received: by 10.64.240.18 with SMTP id vw18csp625391iec;
         Wed, 11 May 2016 23:04:09 -0700 (PDT)
 X-Received: by 10.36.155.132 with SMTP id o126mr7675415itd.95.1463033048992;
@@ -173,11 +170,9 @@ From: Ronnie Beltran <rbbeltran.09@gmail.com>
 To: card@hsbc.com.ph
 Content-Type: multipart/alternative; boundary=001a113f27ce01391305329eed4b
 
-Hey HSBC, just checking the email address availability.
-"""
+Hey HSBC, just checking the email address availability."""
 
-NORMAL_EMAIL1 = """
-MIME-Version: 1.0
+NORMAL_EMAIL1 = """MIME-Version: 1.0
 Received: by 10.64.27.198 with HTTP; Wed, 20 Apr 2016 20:28:34 -0700 (PDT)
 In-Reply-To: <CACQ2dkVTnf_mFRZ2n0eebDxKDQTZNCJ8noJt0zvcgUTXcucJNg@mail.gmail.com>
 References: <CACQ2dkVTnf_mFRZ2n0eebDxKDQTZNCJ8noJt0zvcgUTXcucJNg@mail.gmail.com>
@@ -225,5 +220,4 @@ labspot</b></div></div></div>
 ></span></div>
 </blockquote></div><br></div>
 
---e89a8f3ba2d926983a0530f64eb7--
-"""
+--e89a8f3ba2d926983a0530f64eb7--"""
