@@ -1,7 +1,13 @@
+import os
 import unittest
 
 from bounce_email import bounce_email
 from . import constants
+
+
+BASE_DIR = os.path.join(os.path.dirname(__file__))
+BOUNCES_DIR = os.path.join(BASE_DIR, 'bounces')
+NON_BOUNCES_DIR = os.path.join(BASE_DIR, 'non_bounces')
 
 
 class BounceEmailTest(unittest.TestCase):
@@ -25,3 +31,24 @@ class BounceEmailTest(unittest.TestCase):
         bounce = bounce_email.BounceEmail(self.notbounce)
         self.assertNotEqual(bounce, None)
         self.assertEqual(bounce.is_bounced(), False)
+
+    def test_all_bounces(self):
+        files = os.listdir(BOUNCES_DIR)
+        for f in files:
+            path = os.path.join(BOUNCES_DIR, f)
+            with open(path, 'r') as ff:
+                email_str = ff.read()
+                bounce = bounce_email.BounceEmail(email_str)
+                self.assertNotEqual(bounce, None)
+                self.assertEqual(bounce.is_bounced(), True)
+
+    def test_all_non_bounces(self):
+        files = os.listdir(NON_BOUNCES_DIR)
+        for f in files:
+            path = os.path.join(NON_BOUNCES_DIR, f)
+            print path
+            with open(path, 'r') as ff:
+                email_str = ff.read()
+                bounce = bounce_email.BounceEmail(email_str)
+                self.assertNotEqual(bounce, None)
+                self.assertEqual(bounce.is_bounced(), False)
