@@ -8,6 +8,7 @@ from . import constants
 BASE_DIR = os.path.join(os.path.dirname(__file__))
 BOUNCES_DIR = os.path.join(BASE_DIR, 'bounces')
 NON_BOUNCES_DIR = os.path.join(BASE_DIR, 'non_bounces')
+FIXTURES = os.path.join(BASE_DIR, 'fixtures')
 
 
 class BounceEmailTest(unittest.TestCase):
@@ -52,3 +53,11 @@ class BounceEmailTest(unittest.TestCase):
                 bounce = bounce_email.BounceEmail(email_str)
                 self.assertNotEqual(bounce, None)
                 self.assertEqual(bounce.is_bounced(), False)
+
+    def test_does_not_fail_if_subject_is_none(self):
+        no_subject = os.path.join(FIXTURES, 'no_subject.txt')
+        with open(no_subject, 'r') as f:
+            email_str = f.read()
+            bounce = bounce_email.BounceEmail(email_str)
+            self.assertNotEqual(bounce, None)
+            self.assertEqual(bounce.is_bounced(), False)
