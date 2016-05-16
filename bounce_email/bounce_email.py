@@ -19,10 +19,10 @@ class BounceEmail:
     def __init__(self, email_str):
         self.email = email.message_from_string(email_str)
         self.error_status = self.get_code()
-        self.diagnostic_code = self.get_reason_from_status_code(self.error_status)
+        self.diagnostic_code = self.get_reason_from_status_code()
         self.bounced = self.check_if_bounce()
         self.original_mail = self.get_original_email(self.email)
-        self.bounce_type = self.get_type_from_status_code(self.error_status)
+        self.bounce_type = self.get_type_from_status_code()
 
     @property
     def is_bounced(self):
@@ -158,8 +158,8 @@ class BounceEmail:
         if None not in matches:
             return '4.3.2'
 
-    def get_reason_from_status_code(self, code):
-        if code is None:
+    def get_reason_from_status_code(self):
+        if self.error_status is None:
             return 'unknown'
         reasons = {
             '00':  "Other undefined status is the only undefined error code. It should be used for all errors for which only the class of the error is known.",
@@ -218,12 +218,12 @@ class BounceEmail:
         }
 
         # code = code.gsub(/\./,'')[1..2]
-        return reasons.get(code, 'unknown')
+        return reasons.get(self.error_status, 'unknown')
 
-    def get_type_from_status_code(self, code):
-        if code == 'unknown' or code is None:
+    def get_type_from_status_code(self):
+        if self.error_status == 'unknown' or self.error_status is None:
             return TYPE_HARD_FAIL
-        pre_code = int(code[0])
+        pre_code = int(self.error_status[0])
         types = {
             5: TYPE_HARD_FAIL,
             4: TYPE_SOFT_FAIL,
