@@ -18,24 +18,31 @@ class BounceEmail:
 
     def __init__(self, email_str):
         self.email = email.message_from_string(email_str)
-        self.bounced = False
-        self.diagnostic_code = None
-        self.error_status = None
-        self.bounce_type = None
-        self.original_mail = None
-        self.bounce_type = None
-
-    def is_bounced(self):
+        self.error_status = self.get_code()
+        self.diagnostic_code = self.get_reason_from_status_code(self.error_status)
         self.bounced = self.check_if_bounce()
+        self.original_mail = self.get_original_email(self.email)
+        self.bounce_type = self.get_type_from_status_code(self.error_status)
+
+    @property
+    def is_bounced(self):
         return self.bounced
 
+    @property
     def reason(self):
-        self.diagnostic_code = self.get_reason_from_status_code(self.get_code())
         return self.diagnostic_code
 
+    @property
     def code(self):
-        self.error_status = self.get_code()
         return self.error_status
+
+    @property
+    def bounce_type(self):
+        return self.bounce_type
+
+    @property
+    def original_email(self):
+        return self.original_mail
 
     def check_if_bounce(self):
         subject_patterns = [
@@ -212,3 +219,17 @@ class BounceEmail:
 
         # code = code.gsub(/\./,'')[1..2]
         return reasons.get(code, 'unknown')
+
+    def get_type_from_status_code(self, code):
+        if code == 'unknown' or code is None:
+            return TYPE_HARD_FAIL
+        pre_code = int(code[0])
+        types = {
+            5: TYPE_HARD_FAIL,
+            4: TYPE_SOFT_FAIL,
+            2: TYPE_SUCCESS,
+        }
+        return types[pre_code]
+
+    def get_original_email(self, email_instance):
+        pass
