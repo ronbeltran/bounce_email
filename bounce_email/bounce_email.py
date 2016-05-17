@@ -264,28 +264,42 @@ class BounceEmail:
             return match.group()
 
     def extract_field_from(self, mail, field_name):
-        print 'extract_field_from'
+        print 'extract_field_from()'
         lines = self.original_mail_body_lines(mail)
-        print lines
+        print '|{}|'.format(lines)
+
+    def extract_original_to_field_from_header(self):
+        print 'extract_original_to_field_from_header()'
+        return self.email.get('X-Failed-Recipients')
 
     def extract_and_assign_fields_from(self, original):
-        print 'extract_and_assign_fields_from'
+        print 'extract_and_assign_fields_from()'
         print original.keys()
 
         message_id = original.get('Message-ID')
         if message_id is None:
+            print 'Message-ID not found'
             message_id = self.extract_field_from(original, '^Message-ID:')
             original.add_header('Message-ID', message_id)
 
         from_addr = original.get('From')
         if from_addr is None:
+            print 'From not found'
             from_addr = self.extract_field_from(original, '^From:')
             original.add_header('From', from_addr)
 
         subject = original.get('Subject')
         if subject is None:
+            print 'Subject not found'
             subject = self.extract_field_from(original, '^Subject:')
-            original.add_header('From', from_addr)
+            original.add_header('Subject', subject)
+
+        to_addr = original.get('To')
+        if to_addr is None:
+            print 'To not found'
+            to_addr = self.extract_field_from(original, '^To:') or self.extract_original_to_field_from_header()
+            print 'to_addr: {}'.format(to_addr)
+            original.add_header('To', to_addr)
 
         return original
 
@@ -295,9 +309,10 @@ class BounceEmail:
 
         if self.email.is_multipart():
             print 'self.email is multipart'
-            payloads = self.email.get_payload()
-            last = self.email.get_payload(len(payloads) - 1)
-            original = email.message_from_string(last.as_string())
+            for i, payload in enumerate(self.email.get_payload()):
+                print '{}: {}'.format(i, payload.get_content_type())
+                if 'rfc822' in payload.get_content_type():
+                    original = payload
         else:
             index = self.index_of_original_message_delimiter()
             if index is not None:
