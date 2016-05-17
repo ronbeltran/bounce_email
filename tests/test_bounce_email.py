@@ -96,11 +96,11 @@ class BounceEmailTest(unittest.TestCase):
         self.assertEqual(bounce_email.TYPE_HARD_FAIL, bounce.bounce_type)
         self.assertEqual(bounce.reason, 'unknown', 'Bounce reason should be unknown')
 
-    # def test_all_bounces(self):
-    #     for f in os.listdir(BOUNCES_DIR):
-    #         bounce = self._test_bounce(f)
-    #         self.assertIsNotNone(bounce)
-    #         self.assertEqual(bounce.is_bounced, True)
+    def test_all_bounces(self):
+        for f in os.listdir(BOUNCES_DIR):
+            bounce = self._test_bounce(f)
+            self.assertIsNotNone(bounce)
+            self.assertEqual(bounce.is_bounced, True)
 
     def test_all_non_bounces(self):
         for f in os.listdir(NON_BOUNCES_DIR):
