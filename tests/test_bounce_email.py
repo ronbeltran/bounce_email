@@ -71,11 +71,11 @@ class BounceEmailTest(unittest.TestCase):
     def test_permanent_failure(self):
         path = os.path.join(BOUNCES_DIR, 'tt_bounce_08.txt')
         bounce = self._test_bounce(path)
-        # self.assertEqual(bounce.code, '5.3.2', 'Bounce code should be 5.3.2')  # fixme: 5.0.0
+        self.assertEqual(bounce.code, '5.3.2', 'Bounce code should be 5.3.2')
 
         path = os.path.join(BOUNCES_DIR, 'tt_bounce_09.txt')
         bounce = self._test_bounce(path)
-        # self.assertEqual(bounce.code, '5.3.2', 'Bounce code should be 5.3.2')
+        self.assertEqual(bounce.code, '5.3.2', 'Bounce code should be 5.3.2')
 
     def test_bounce_type_soft_fail(self):
         path = os.path.join(BOUNCES_DIR, 'tt_bounce_10.txt')
@@ -93,7 +93,7 @@ class BounceEmailTest(unittest.TestCase):
         bounce = self._test_bounce(path)
         self.assertEqual(bounce.is_bounced, True)
         self.assertEqual(bounce.code, 'unknown', 'Bounce code should be unknown')
-        self.assertEqual(bounce_email.TYPE_HARD_FAIL, bounce.bounce_type)  # fixme: TYPE_HARD_FAIL
+        self.assertEqual(bounce_email.TYPE_HARD_FAIL, bounce.bounce_type)
         self.assertEqual(bounce.reason, 'unknown', 'Bounce reason should be unknown')
 
     # def test_all_bounces(self):
@@ -127,7 +127,7 @@ class BounceEmailTest(unittest.TestCase):
         self.assertIsNotNone(bounce)
         self.assertEqual(bounce_email.TYPE_HARD_FAIL, bounce.bounce_type)
         # self.assertEqual(bounce.is_bounced, True)
-        # self.assertNotEqual(bounce.original_mail, None)
+        # self.assertIsNotNone(bounce.original_mail, None)
 
     # def test_original_message_with_multipart_mails(self):
     #     multipart_mails = ['05', '07', '10', '11', '13', '15', '16', '23', '24']
