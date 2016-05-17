@@ -139,15 +139,15 @@ class BounceEmailTest(unittest.TestCase):
     #         self.assertIsNotNone(bounce.original_mail.to)
     #         self.assertIsNotNone(bounce.original_mail._from)
 
-    # def test_original_message_with_multipart_mails_without_to_field(self):
-    #     multipart_mails = ['03', '04']
-    #     for m in multipart_mails:
-    #         path = os.path.join(BOUNCES_DIR, 'tt_bounce_{}.txt'.format(m))
-    #         bounce = self._test_bounce(path)
-    #         self.assertIsNotNone(bounce.original_mail)
-    #         self.assertIsNotNone(bounce.original_mail.message_id)
-    #         self.assertEqual(bounce.original_mail.to, [])
-    #         self.assertIsNotNone(bounce.original_mail._from)
+    def test_original_message_with_multipart_mails_without_to_field(self):
+        multipart_mails = ['03', '04']
+        for m in multipart_mails:
+            path = os.path.join(BOUNCES_DIR, 'tt_bounce_{}.txt'.format(m))
+            bounce = self._test_bounce(path)
+            # self.assertIsNotNone(bounce.original_mail)
+            # self.assertIsNotNone(bounce.original_mail['Message-ID'])
+            # self.assertEqual([], bounce.original_mail['To'])
+            # self.assertIsNotNone(bounce.original_mail['From'])
 
     def test_original_message_without_inline_original_message(self):
         path = os.path.join(BOUNCES_DIR, 'tt_bounce_01.txt')
@@ -155,27 +155,28 @@ class BounceEmailTest(unittest.TestCase):
         self.assertIsNotNone(bounce)
         self.assertIsNone(bounce.original_mail)
 
-    # def test_original_message_with_inline_original_message(self):
-    #     multipart_mails = ['06', '08', '09', '12_soft', '14', '17', '18', '19', '20', '21', '22', '25']
-    #     for m in multipart_mails:
-    #         path = os.path.join(BOUNCES_DIR, 'tt_bounce_{}.txt'.format(m))
-    #         bounce = self._test_bounce(path)
-    #         # self.assertIsNotNone(bounce.original_mail)
-    #         # self.assertIsNotNone(bounce.original_mail.message_id)
-    #         # self.assertIsNotNone(bounce.original_mail.to)
-    #         # self.assertIsNotNone(bounce.original_mail._from)
+    def test_original_message_with_inline_original_message(self):
+        multipart_mails = ['06', '08', '09', '12_soft', '14', '17', '18', '19', '20', '21', '22', '25']
+        for m in multipart_mails:
+            path = os.path.join(BOUNCES_DIR, 'tt_bounce_{}.txt'.format(m))
+            bounce = self._test_bounce(path)
+            self.assertIsNotNone(bounce.original_mail)
+            self.assertIsNotNone(bounce.original_mail['Message-ID'])
+            self.assertIsNotNone(bounce.original_mail['To'])
+            self.assertIsNotNone(bounce.original_mail['From'])
 
     def test_original_message_with_subject(self):
         path = os.path.join(BOUNCES_DIR, 'tt_bounce_04.txt')
         bounce = self._test_bounce(path)
         self.assertIsNotNone(bounce)
-        # self.assertIsNotNone(bounce.original_mail.subject)
+        # self.assertIsNotNone(bounce.original_mail)
+        # self.assertIsNotNone(bounce.original_mail['Subject'])
 
     def test_original_message_with_bounced_gmail(self):
         path = os.path.join(BOUNCES_DIR, 'undeliverable_gmail.txt')
         bounce = self._test_bounce(path)
         self.assertIsNotNone(bounce)
-        # self.assertIsNotNone(bounce.original_mail)
-        # self.assertIsNotNone(bounce.original_mail.message_id)
-        # self.assertIsNotNone(bounce.original_mail.to)
-        # self.assertIsNotNone(bounce.original_mail._from)
+        self.assertIsNotNone(bounce.original_mail)
+        self.assertIsNotNone(bounce.original_mail['Message-ID'])
+        self.assertIsNotNone(bounce.original_mail['To'])
+        self.assertIsNotNone(bounce.original_mail['From'])
