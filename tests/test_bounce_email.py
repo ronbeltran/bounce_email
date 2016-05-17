@@ -118,8 +118,8 @@ class BounceEmailTest(unittest.TestCase):
         path = os.path.join(BOUNCES_DIR, 'tt_bounce_10.txt')
         bounce = self._test_bounce(path)
         self.assertIsNotNone(bounce)
-        # self.assertIsNotNone(bounce.email.body)
-        # self.assertIsNotNone(bounce.email.date)
+        self.assertIsNotNone(bounce.get_original_mail())  # bounce.email.body
+        self.assertIsNotNone(bounce.email['Date'])
 
     def test_multipart(self):
         path = os.path.join(BOUNCES_DIR, 'tt_bounce_24.txt')
