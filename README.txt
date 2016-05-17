@@ -2,6 +2,7 @@
 
 ```
 #!bash
+
     mkvirtualenv bounce_email
     pip install -r requirements.txt
 ```
@@ -10,6 +11,7 @@
 
 ```
 #!bash
+
     nosetests --verbose
 ```
 
@@ -17,6 +19,7 @@
 
 ```
 #!python
+
     from bounce_email import bounce_email
 
     msg = """ Fill with raw email text
