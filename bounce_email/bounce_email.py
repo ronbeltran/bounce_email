@@ -290,12 +290,14 @@ class BounceEmail:
         return original
 
     def get_original_mail(self):
-        print 'get_original_mail'
+        print 'get_original_mail()'
         original = None
-        mail = self.email
 
-        if mail.is_multipart():
-            pass
+        if self.email.is_multipart():
+            print 'self.email is multipart'
+            payloads = self.email.get_payload()
+            last = self.email.get_payload(len(payloads) - 1)
+            original = email.message_from_string(last.as_string())
         else:
             index = self.index_of_original_message_delimiter()
             if index is not None:
