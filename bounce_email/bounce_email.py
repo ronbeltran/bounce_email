@@ -303,7 +303,7 @@ class BounceEmail:
 
         if self.email.is_multipart():
             for i, payload in enumerate(self.email.get_payload()):
-                print '{}: {}'.format(i, payload.get_content_type())
+                # print '{}: {}'.format(i, payload.get_content_type())
                 if 'rfc822' in payload.get_content_type():
                     original = payload
         else:
