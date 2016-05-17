@@ -129,7 +129,6 @@ class BounceEmail:
         status_522 = ['mailbox is full|Mailbox quota (usage|disk) exceeded|quota exceeded|Over quota|User mailbox exceeds allowed size|Message rejected\. Not enough storage space|user has exhausted allowed storage space|too many messages on the server|mailbox is over quota|mailbox exceeds allowed size',
                       'This is a permanent error']
         matches = map(search, status_522)
-        print matches
         if None not in matches:
             return '5.2.2'
 
@@ -145,7 +144,6 @@ class BounceEmail:
                       'Connection was dropped by remote host',
                       'Could not initiate SMTP conversation']
         matches = map(search, status_532)
-        print matches
         if None not in matches:
             return '5.3.2'
 
@@ -155,7 +153,6 @@ class BounceEmail:
                       'Connection was dropped by remote host',
                       'Could not initiate SMTP conversation']
         matches = map(search, status_432)
-        print matches
         if None not in matches:
             return '4.3.2'
 
