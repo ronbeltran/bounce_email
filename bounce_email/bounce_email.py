@@ -98,6 +98,46 @@ class BounceEmail:
             pattern = re.compile(p, re.IGNORECASE)
             return pattern.search(email_str)
 
+        # check for 5.2.2
+        status_522 = ['mailbox is full|Mailbox quota (usage|disk) exceeded|quota exceeded|Over quota|User mailbox exceeds allowed size|Message rejected\. Not enough storage space|user has exhausted allowed storage space|too many messages on the server|mailbox is over quota|mailbox exceeds allowed size',
+                      'This is a permanent error']
+        matches = map(search, status_522)
+        if None not in matches:
+            return '5.2.2'
+
+        # check for 4.2.2
+        status_422 = status_522[0]
+        match = search(status_422)
+        if match:
+            return '4.2.2'
+
+        # check for 5.3.2 status
+        status_532 = ['Technical details of permanent failure|Too many bad recipients',
+                      'The recipient server did not accept our requests to connect']
+        status_532_b = ['Connection was dropped by remote host',
+                        'Could not initiate SMTP conversation']
+        matches = map(search, status_532)
+        if None not in matches:
+            return '5.3.2'
+
+        matches = map(search, status_532_b)
+        matches = [m for m in matches if m is not None]
+        if len(matches) >= 1:
+            return '5.3.2'
+
+        status_432 = ['Technical details of temporary failure',
+                      'The recipient server did not accept our requests to connect']
+        status_432_b = ['Connection was dropped by remote host',
+                        'Could not initiate SMTP conversation']
+        matches = map(search, status_432)
+        if None not in matches:
+            return '4.3.2'
+
+        matches = map(search, status_432_b)
+        matches = [m for m in matches if m is not None]
+        if len(matches) >= 1:
+            return '4.3.2'
+
         status_patterns = {
             '5.1.0': 'Address rejected',
             '4.1.2': "I couldn't find any host by that name",
@@ -125,36 +165,6 @@ class BounceEmail:
             if match:
                 return k
 
-        # check for 5.2.2
-        status_522 = ['mailbox is full|Mailbox quota (usage|disk) exceeded|quota exceeded|Over quota|User mailbox exceeds allowed size|Message rejected\. Not enough storage space|user has exhausted allowed storage space|too many messages on the server|mailbox is over quota|mailbox exceeds allowed size',
-                      'This is a permanent error']
-        matches = map(search, status_522)
-        if None not in matches:
-            return '5.2.2'
-
-        # check for 4.2.2
-        status_422 = status_522[0]
-        match = search(status_422)
-        if match:
-            return '4.2.2'
-
-        # check for 5.3.2 status
-        status_532 = ['Technical details of permanent failure|Too many bad recipients',
-                      'The recipient server did not accept our requests to connect',
-                      'Connection was dropped by remote host',
-                      'Could not initiate SMTP conversation']
-        matches = map(search, status_532)
-        if None not in matches:
-            return '5.3.2'
-
-        # check for 4.3.2 status
-        status_432 = ['Technical details of temporary failure',
-                      'The recipient server did not accept our requests to connect',
-                      'Connection was dropped by remote host',
-                      'Could not initiate SMTP conversation']
-        matches = map(search, status_432)
-        if None not in matches:
-            return '4.3.2'
 
     def get_reason_from_status_code(self):
         if self.error_status is None:
