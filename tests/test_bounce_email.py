@@ -126,8 +126,8 @@ class BounceEmailTest(unittest.TestCase):
         bounce = self._test_bounce(path)
         self.assertIsNotNone(bounce)
         self.assertEqual(bounce_email.TYPE_HARD_FAIL, bounce.bounce_type)
-        # self.assertEqual(bounce.is_bounced, True)
-        # self.assertIsNotNone(bounce.original_mail, None)
+        self.assertEqual(bounce.is_bounced, True)
+        self.assertIsNotNone(bounce.original_mail)
 
     # def test_original_message_with_multipart_mails(self):
     #     multipart_mails = ['05', '07', '10', '11', '13', '15', '16', '23', '24']
