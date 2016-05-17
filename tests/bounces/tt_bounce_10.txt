@@ -57,7 +57,6 @@ Diagnostic-Code: X-Postfix; temporary failure
 --8BCE21088059.1189872428/mail.studio7.lv
 Content-Description: Undelivered Message
 Content-Type: message/rfc822
-
 Received: from localhost (localhost.localdomain [127.0.0.1])
 	by mail.studio7.lv (Postfix) with ESMTP id 8BCE21088059
 	for <info.rietumuradio.lv@mail.studio7.lv>; Fri, 14 Sep 2007 18:52:25 +0300 (EEST)

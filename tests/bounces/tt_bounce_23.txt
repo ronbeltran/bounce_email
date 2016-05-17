@@ -56,7 +56,6 @@ Last-Attempt-Date: Thu, 30 Aug 2007 11:16:08 +0300
 
 --l7U8G8X9006653.1188461768/pnew.exigengroup.lv
 Content-Type: message/rfc822
-
 Return-Path: <agris.ameriks@gmail.com>
 Received: from lnrixm01.exigengroup.lv (lnrixm01.exigengroup.lv [192.168.0.115])
 	by pnew.exigengroup.lv (X.VV.Z/X.VV.Z) with ESMTP id l7U8G5X9006650

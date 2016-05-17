@@ -44,7 +44,6 @@ Status: 5.0.0
 
 --_===110354846====apollo.lv===_
 Content-Type: message/rfc822
-
 Received: from zproxy.gmail.com ([64.233.162.194] verified)
   by apollo.lv (CommuniGate Pro SMTP 4.1.8)
   with ESMTP id 110354858 for agrisa@apollo.lv; Mon, 28 Nov 2005 20:26:37 +0200

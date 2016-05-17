@@ -69,7 +69,6 @@ Diagnostic-Code: X-Notes; Recipient user name info (info@rimibaltic.com
  
 --==IFJRGLKFGIR29037UHRUHIHD
 Content-Type: message/rfc822
-
 Received: from mail1.rimibaltic.com ([172.16.250.54])
           by rimilt01.rimi.lan (Lotus Domino Release 6.5.3)
           with SMTP id 2007082916090093-229401 ;

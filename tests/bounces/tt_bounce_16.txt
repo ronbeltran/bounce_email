@@ -62,7 +62,6 @@ Diagnostic-Code: X-Postfix; maildir delivery failed: Sorry, the user's maildir
 --EC740620064.1189661132/blackbird.grafton.lv
 Content-Description: Undelivered Message Headers
 Content-Type: text/rfc822-headers
-
 Received: from hu-out-0506.google.com (hu-out-0506.google.com [72.14.214.233])
 	by blackbird.grafton.lv (Postfix) with ESMTP id 1B48675C04F
 	for <notikums@tv5.lv>; Thu, 13 Sep 2007 08:25:29 +0300 (EEST)

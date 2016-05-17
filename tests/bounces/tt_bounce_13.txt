@@ -49,7 +49,6 @@ X-Display-Name: Ilze Bumane
 
 --9B095B5ADSN=_01C7DED0EB082C7600015D0ALVAEI?EXCH.lvaei
 Content-Type: message/rfc822
-
 Received: from py-out-1112.google.com ([64.233.166.181]) by LVAEI-EXCH.lvaei.lv with Microsoft SMTPSVC(6.0.3790.1830);
 	 Fri, 14 Sep 2007 09:46:01 +0300
 Received: by py-out-1112.google.com with SMTP id p76so1664020pyb

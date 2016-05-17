@@ -39,7 +39,6 @@ Status: 5.0.0
 
 --_===38387797====avalon.telekom.lv===_
 Content-Type: message/rfc822
-
 Received: from ug-out-1314.google.com ([66.249.92.174] verified)
   by avalon.telekom.lv (CommuniGate Pro SMTP 5.0.8)
   with ESMTP id 38387776 for ilona.kalnina@citrus.lv; Tue, 05 Jun 2007 01:20:10 +0300

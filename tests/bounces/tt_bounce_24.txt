@@ -218,7 +218,6 @@ Diagnostic-Code: smtp;550 5.1.1 RESOLVER.ADR.RecipNotFound; not found
 
 --f518d4c6-edf1-4463-b115-f1a617b52ef3
 Content-Type: message/rfc822
-
 Received: from p02c12m081.mxlogic.net (208.65.145.245) by
  fgsrv-mail01.fasadglas.sto (192.168.0.8) with Microsoft SMTP Server id
  14.0.722.0; Tue, 26 Apr 2011 16:27:47 +0200

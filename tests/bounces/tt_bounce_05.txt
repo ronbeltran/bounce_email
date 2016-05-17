@@ -41,7 +41,6 @@ Status: 5.0.0
 
 --_===92533048====smtp2.apollo.lv===_
 Content-Type: message/rfc822
-
 Received: from wr-out-0506.google.com ([64.233.184.231] verified)
   by smtp2.apollo.lv (CommuniGate Pro SMTP 5.0.10)
   with ESMTP id 92533044 for evor@apollo.lv; Tue, 08 May 2007 19:35:26 +0300
