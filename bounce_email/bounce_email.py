@@ -10,8 +10,9 @@ INLINE_MESSAGE_BEGIN_DELIMITERS = [
     'Below this line is a copy of the message.',
     'Message header follows',
 ]
-INLINE_MESSAGE_BEGIN_DELIMITERS_PATTERNS = [re.compile('^[-\s]*{}[\s-]*$'.format(d)) for d in INLINE_MESSAGE_BEGIN_DELIMITERS]
-INLINE_MESSAGE_END_DELIMITER_PATTERN = re.compile('^[-\s]*End of message[\s-]*$')
+INLINE_MESSAGE_BEGIN_DELIMITERS_PATTERNS = [
+    '[-\s]*{}[\s-]*'.format(d) for d in INLINE_MESSAGE_BEGIN_DELIMITERS]
+INLINE_MESSAGE_END_DELIMITER_PATTERN = '[-\s]*End of message[\s-]*'
 
 
 class BounceEmail:
@@ -20,9 +21,9 @@ class BounceEmail:
         self.email = email.message_from_string(email_str)
         self.error_status = self.get_code()
         self.diagnostic_code = self.get_reason_from_status_code()
-        self.bounced = self.check_if_bounce()
-        self.original_mail = self.get_original_email(self.email)
+        self.bounced = self.check_if_bounce() or self.error_status != 'unknown' or self.diagnostic_code != 'unknown'
         self.bounce_type = self.get_type_from_status_code()
+        self.original_mail = self.get_original_mail()
 
     @property
     def is_bounced(self):
@@ -231,5 +232,68 @@ class BounceEmail:
         }
         return types[pre_code]
 
-    def get_original_email(self, email_instance):
-        pass
+    def index_of_original_message_delimiter(self):
+        for index, d in enumerate(INLINE_MESSAGE_BEGIN_DELIMITERS_PATTERNS):
+            pattern = re.compile(d)
+            match = pattern.search(self.email.as_string())
+            if match:
+                return index
+
+    def extract_original_message_after_delimiter(self, delimeter_index):
+        pattern = re.compile(INLINE_MESSAGE_BEGIN_DELIMITERS_PATTERNS[delimeter_index])
+        match = pattern.search(self.email.as_string())
+        if match:
+            msg = self.email.as_string().split(match.group())[1]
+            end_pattern = re.compile(INLINE_MESSAGE_END_DELIMITER_PATTERN)
+            match = end_pattern.search(msg)
+            if match:
+                msg = self.email.as_string().split(match.group())[0]
+            return msg.strip()
+
+    def original_mail_body_lines(self, mail):
+        pattern = re.compile('(?:\r\n|\n)+')
+        match = pattern.search(mail.as_string())
+        if match:
+            return match.group()
+
+    def extract_field_from(self, mail, field_name):
+        print 'extract_field_from'
+        lines = self.original_mail_body_lines(mail)
+        print lines
+
+    def extract_and_assign_fields_from(self, original):
+        print 'extract_and_assign_fields_from'
+        print original.keys()
+
+        message_id = original.get('Message-ID')
+        if message_id is None:
+            message_id = self.extract_field_from(original, '^Message-ID:')
+            original.add_header('Message-ID', message_id)
+
+        from_addr = original.get('From')
+        if from_addr is None:
+            from_addr = self.extract_field_from(original, '^From:')
+            original.add_header('From', from_addr)
+
+        subject = original.get('Subject')
+        if subject is None:
+            subject = self.extract_field_from(original, '^Subject:')
+            original.add_header('From', from_addr)
+
+        return original
+
+    def get_original_mail(self):
+        print 'get_original_mail'
+        original = None
+        mail = self.email
+
+        if mail.is_multipart():
+            pass
+        else:
+            index = self.index_of_original_message_delimiter()
+            if index is not None:
+                message = self.extract_original_message_after_delimiter(index)
+                original = email.message_from_string(message)
+
+        if original:
+            return self.extract_and_assign_fields_from(original)
