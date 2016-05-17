@@ -258,57 +258,50 @@ class BounceEmail:
             return msg.strip()
 
     def original_mail_body_lines(self, mail):
-        pattern = re.compile('(?:\r\n|\n)+')
-        match = pattern.search(mail.as_string())
-        if match:
-            return match.group()
+        lines = []
+        for k, v in mail.items():
+            lines.append(': '.join([k, v]))
+        return lines
 
     def extract_field_from(self, mail, field_name):
-        print 'extract_field_from()'
+        pattern = re.compile(field_name, re.IGNORECASE)
         lines = self.original_mail_body_lines(mail)
-        print '|{}|'.format(lines)
+        for line in lines:
+            match = pattern.search(line)
+            if match:
+                field = match.group()
+                return field.split(':')[1]
 
     def extract_original_to_field_from_header(self):
-        print 'extract_original_to_field_from_header()'
         return self.email.get('X-Failed-Recipients')
 
     def extract_and_assign_fields_from(self, original):
-        print 'extract_and_assign_fields_from()'
-        print original.keys()
-
         message_id = original.get('Message-ID')
         if message_id is None:
-            print 'Message-ID not found'
             message_id = self.extract_field_from(original, '^Message-ID:')
             original.add_header('Message-ID', message_id)
 
         from_addr = original.get('From')
         if from_addr is None:
-            print 'From not found'
             from_addr = self.extract_field_from(original, '^From:')
             original.add_header('From', from_addr)
 
         subject = original.get('Subject')
         if subject is None:
-            print 'Subject not found'
             subject = self.extract_field_from(original, '^Subject:')
             original.add_header('Subject', subject)
 
         to_addr = original.get('To')
         if to_addr is None:
-            print 'To not found'
             to_addr = self.extract_field_from(original, '^To:') or self.extract_original_to_field_from_header()
-            print 'to_addr: {}'.format(to_addr)
             original.add_header('To', to_addr)
 
         return original
 
     def get_original_mail(self):
-        print 'get_original_mail()'
         original = None
 
         if self.email.is_multipart():
-            print 'self.email is multipart'
             for i, payload in enumerate(self.email.get_payload()):
                 print '{}: {}'.format(i, payload.get_content_type())
                 if 'rfc822' in payload.get_content_type():
