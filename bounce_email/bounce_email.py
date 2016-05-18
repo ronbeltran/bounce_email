@@ -80,12 +80,20 @@ class BounceEmail:
                 return k
 
         if self.email.is_multipart():
-            payload = self.email.get_payload(1)
             pattern = re.compile('(Status:.|550 |#)([245]\.[0-9]{1,3}\.[0-9]{1,3})')
-            match = pattern.search(payload.as_string())
-            if match:
-                code = match.group().split(':')[1].strip()
-                return code
+            for index, part in enumerate(self.email.get_payload()):
+                # print '{}: {}'.format(index, part.get_content_type())
+                if 'delivery-status' in part.get_content_type():   # message/delivery-status
+                    match = pattern.search(part.as_string())
+                    if match:
+                        # check if starts with Status: XXX, or 550 XXX
+                        code = match.group().strip()
+                        if len(code.split()) > 1:
+                            code = code.split()[1]
+                        # check if starts with `#` e.g. #1234
+                        if code.startswith('#'):
+                            code = code[1:]
+                        return code
 
         code = self.get_status_from_text(self.email.as_string())
 
@@ -304,7 +312,7 @@ class BounceEmail:
         if self.email.is_multipart():
             for i, payload in enumerate(self.email.get_payload()):
                 # print '{}: {}'.format(i, payload.get_content_type())
-                if 'rfc822' in payload.get_content_type():
+                if 'rfc822' in payload.get_content_type():  # message/rfc822
                     original = payload
         else:
             index = self.index_of_original_message_delimiter()
