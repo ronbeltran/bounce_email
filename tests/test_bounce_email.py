@@ -180,3 +180,10 @@ class BounceEmailTest(unittest.TestCase):
         self.assertIsNotNone(bounce.original_email['Message-ID'])
         self.assertIsNotNone(bounce.original_email['To'])
         self.assertIsNotNone(bounce.original_email['From'])
+
+    def test_bounce_from_auto_responder(self):
+        path = os.path.join(BOUNCES_DIR, 'bounce-auto-respond.txt')
+        bounce = self._test_bounce(path)
+        self.assertIsNotNone(bounce)
+        self.assertIsNotNone(bounce.original_email)
+        self.assertEqual(bounce.is_bounced, True)
