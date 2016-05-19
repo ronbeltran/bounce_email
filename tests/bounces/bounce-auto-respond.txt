@@ -1,0 +1,64 @@
+Delivered-To: ronnie@collabspot.com
+Received: by 10.31.222.66 with SMTP id v63csp2860590vkg;
+        Thu, 19 May 2016 02:36:35 -0700 (PDT)
+X-Received: by 10.107.168.85 with SMTP id r82mr8741592ioe.179.1463650595265;
+        Thu, 19 May 2016 02:36:35 -0700 (PDT)
+Return-Path: <3e8.10.ronnie=collabspot.com@advanced-email.com>
+Received: from mail1.quiksoft.com (mail1.quiksoft.com. [74.81.197.41])
+        by mx.google.com with ESMTP id c136si11844935ioc.50.2016.05.19.02.36.35
+        for <ronnie@collabspot.com>;
+        Thu, 19 May 2016 02:36:35 -0700 (PDT)
+Received-SPF: pass (google.com: domain of 3e8.10.ronnie=collabspot.com@advanced-email.com designates 74.81.197.41 as permitted sender) client-ip=74.81.197.41;
+Authentication-Results: mx.google.com;
+       spf=pass (google.com: domain of 3e8.10.ronnie=collabspot.com@advanced-email.com designates 74.81.197.41 as permitted sender) smtp.mailfrom=3e8.10.ronnie=collabspot.com@advanced-email.com
+Date: Thu, 19 May 2016 02:36:35 -0700 (PDT)
+X-FBL: M2U4LjEyLjE1MzAwMDAwMDAwMDA4OC5yb25uaWU9Y29sbGFic3BvdC5jb20=
+To: ronnie@collabspot.com
+From: MAILER-DAEMON
+Subject: Email Feedback Report for IP XXX.XXX.XXX.XXX
+MIME-Version: 1.0
+Content-Type: multipart/report; report-type=feedback-report; boundary="boundary-1138-29572-2659438-2101"
+Message-ID: <200906081137.7dfe4a2d30302bf@omr-m23.mx.aol.com>
+
+--boundary-1138-29572-2659438-2101
+Content-Type: text/plain; charset="US-ASCII"
+Content-Transfer-Encoding: 7bit
+
+This is an email abuse report for an email message with the message-id of <CACQ2dkWXpyrApeChaPtnREf0V7FME4Rd_5bR56DNi=B_quWqCA@mail.gmail.com> received from IP address XXX.XXX.XXX.XXX on Thu, 04 Jun 2009 09:24:58 -0400
+
+
+--boundary-1138-29572-2659438-2101
+Content-Disposition: inline
+Content-Type: message/feedback-report
+
+Feedback-Type: abuse
+User-Agent: SocketLabs
+Version: 0.1
+Source-IP: XXX.XXX.XXX.XXX
+Reported-Domain: service.socketlabs.com
+Redacted-Address: redacted
+Redacted-Address: redacted@
+
+
+--boundary-1138-29572-2659438-2101
+Content-Type: message/rfc822
+Content-Disposition: inline
+
+Received: from mail-vk0-f51.google.com (mail-vk0-f51.google.com [209.85.213.51]) by mail1.quiksoft.com
+	with ESMTP; Thu, 19 May 2016 05:36:35 -0400
+Received: by mail-vk0-f51.google.com with SMTP id c189so95672410vkb.1
+        for <fbl-test@service.socketlabs.com>; Thu, 19 May 2016 02:36:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=collabspot.com; s=google;
+        h=mime-version:date:message-id:subject:from:to;
+        bh=rlrJsKzmuG05yYmagishI2Gp4DMaN2rf88cUk1+aAoY=;
+        b=GifVV+AU11xbxPDhFup+4tXIdySSOXeUHWCOCdvevjJDll2K4qTSm8B/eaptnQg1ym
+         cMOR+jQ68wALkQvq93/3B2LJRIKeNHjU5rv883hyzolPnKJLFIk3cTngUG6klYee7I1i
+         azkt1c4CrQ+0We1xrL1F9lRmh6sGmeaL7g8cc=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20130820;
+        h=x-gm-message-state:mime-version:date:message-id:subject:from:to;
+        bh=rlrJsKzmuG05yYmagishI2Gp4DMaN2rf88cUk1+aAoY=;
+        b=Qt+A3JwBwjqIrcF9I4YW/gz7kV1OxAs41hBVhPEi6Y6GQBlcP3STBjp8TyzNqI3rT5
+         0TUlA1iTsYjyo8QnQwFHDWCpx27wRT44t3AgKlB2S6FQjybHKc/+lg4XvPIT8mSXerSj
+         0k3CPBdn6sM6P
