@@ -56,7 +56,7 @@ class BounceEmail:
             if match:
                 return True
         from_patterns = [
-            re.compile('^(MAILER-DAEMON|POSTMASTER)\@', re.IGNORECASE),
+            re.compile('^(MAILER-DAEMON|POSTMASTER)', re.IGNORECASE),
         ]
         for pattern in from_patterns:
             match = pattern.search(self.email.get('From', ''))
