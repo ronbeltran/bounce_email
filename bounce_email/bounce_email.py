@@ -245,6 +245,8 @@ class BounceEmail:
             4: TYPE_SOFT_FAIL,
             2: TYPE_SUCCESS,
         }
+        if pre_code not in types.keys():
+            return TYPE_HARD_FAIL
         return types[pre_code]
 
     def index_of_original_message_delimiter(self):
