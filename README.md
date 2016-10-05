@@ -1,3 +1,7 @@
+## Port of Ruby version bounce_email to Python
+
+https://github.com/getoutreach/bounce_email
+
 ## Setup workinv env
 
     mkvirtualenv bounce_email
