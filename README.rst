@@ -1,17 +1,21 @@
-## Port of Ruby version bounce_email to Python
+Port of Ruby version bounce_email to Python
+------------------------------------------
 
 https://github.com/getoutreach/bounce_email
 
-## Setup workinv env
+Setup workinv env
+-----------------
 
     mkvirtualenv bounce_email
     pip install -r requirements.txt
 
-## Run the tests
+Run the tests
+-------------
 
     nosetests --verbose
 
-## Usage
+Usage
+-----
 
     from bounce_email import bounce_email
 

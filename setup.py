@@ -1,10 +1,16 @@
 from setuptools import setup
 
+
+def readme():
+    with open('README.rst') as f:
+        return f.read()
+
+
 setup(
     name='bounce_email',
     version='0.0.1',
     description='Port of Ruby version bounce_email to Python to detect bounced emails',
-    long_description=open('README.md').read(),
+    long_description=readme(),
     keywords='gmail detect bounce email',
     url='http://github.com/ronbeltran/bounce_email',
     author='Ronnie Beltran',
