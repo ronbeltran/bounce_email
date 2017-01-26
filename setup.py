@@ -8,7 +8,7 @@ def readme():
 
 setup(
     name='bounce_email',
-    version='0.0.2',
+    version='0.0.3',
     description='Port of Ruby version bounce_email to Python to detect bounced emails',
     long_description=readme(),
     keywords='gmail detect bounce email',
