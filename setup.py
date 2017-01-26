@@ -20,5 +20,5 @@ setup(
     include_package_data=True,
     zip_safe=False,
     test_suite='nose.collector',
-    test_requires='nose',
+    test_require=['nose'],
 )
