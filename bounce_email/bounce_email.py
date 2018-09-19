@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import re
 import email
+from collections import OrderedDict
 
 TYPE_HARD_FAIL = 'Permanent Failure'
 TYPE_SOFT_FAIL = 'Persistent Transient Failure'
@@ -146,27 +147,27 @@ class BounceEmail:
         if len(matches) >= 1:
             return '4.3.2'
 
-        status_patterns = {
-            '5.1.0': 'Address rejected',
-            '4.1.2': "I couldn't find any host by that name",
-            '4.2.0': 'not yet been delivered',
-            '5.2.0': 'mailbox unavailable|No such mailbox',
-            '5.4.4': 'Unrouteable address',
-            '4.4.7': 'retry timeout exceeded',
-            '5.2.0': 'The account or domain may not exist, they may be blacklisted, or missing the proper dns entries.',
-            '5.5.4': '554 TRANSACTION FAILED',
-            '4.4.1': "Status: 4.4.1|delivery temporarily suspended|wasn't able to establish an SMTP connection",
-            '5.5.0': '550 OU\-002|Mail rejected by Windows Live Hotmail for policy reasons',
-            '5.1.2': 'PERM_FAILURE: DNS Error: Domain name not found',
-            '4.2.0': 'Delivery attempts will continue to be made for',
-            '5.5.4': '554 delivery error:',
-            '5.1.1': '550-5.1.1|This Gmail user does not exist',
-            '5.7.1': '5.7.1 Your message.*?was blocked by ROTA DNSBL',
-            '5.0.0': 'Delivery to the following recipient failed permanently',
-            '5.2.3': 'account closed|account has been disabled or discontinued|mailbox not found|prohibited by administrator|access denied|account does not exist',
-            '5.1.1': 'no such (address|user)|Recipient address rejected|User unknown|does not like recipient|The recipient was unavailable to take delivery of the message|Sorry, no mailbox here by that name|invalid address|unknown user|unknown local part|user not found|invalid recipient|failed after I sent the message|did not reach the following recipient|nicht zugestellt werden',
-            '5.1.2': "unrouteable mail domain|Esta casilla ha expirado por falta de uso|I couldn't find any host named",
-        }
+        status_patterns = OrderedDict([
+            ('5.1.0', 'Address rejected'),
+            ('4.1.2', "I couldn't find any host by that name"),
+            ('4.2.0', 'not yet been delivered'),
+            ('5.2.0', 'mailbox unavailable|No such mailbox'),
+            ('5.4.4', 'Unrouteable address'),
+            ('4.4.7', 'retry timeout exceeded'),
+            ('5.2.0', 'The account or domain may not exist, they may be blacklisted, or missing the proper dns entries.'),
+            ('5.5.4', '554 TRANSACTION FAILED'),
+            ('4.4.1', "Status: 4.4.1|delivery temporarily suspended|wasn't able to establish an SMTP connection"),
+            ('5.5.0', '550 OU\-002|Mail rejected by Windows Live Hotmail for policy reasons'),
+            ('5.1.2', 'PERM_FAILURE: DNS Error: Domain name not found'),
+            ('4.2.0', 'Delivery attempts will continue to be made for'),
+            ('5.5.4', '554 delivery error:'),
+            ('5.1.1', '550-5.1.1|This Gmail user does not exist'),
+            ('5.7.1', '5.7.1 Your message.*?was blocked by ROTA DNSBL'),
+            ('5.0.0', 'Delivery to the following recipient failed permanently'),
+            ('5.2.3', 'account closed|account has been disabled or discontinued|mailbox not found|prohibited by administrator|access denied|account does not exist'),
+            ('5.1.1', 'no such (address|user)|Recipient address rejected|User unknown|does not like recipient|The recipient was unavailable to take delivery of the message|Sorry, no mailbox here by that name|invalid address|unknown user|unknown local part|user not found|invalid recipient|failed after I sent the message|did not reach the following recipient|nicht zugestellt werden'),
+            ('5.1.2', "unrouteable mail domain|Esta casilla ha expirado por falta de uso|I couldn't find any host named"),
+        ])
 
         for k, v in status_patterns.iteritems():
             match = search(v)
