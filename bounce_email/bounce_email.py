@@ -12,8 +12,10 @@ INLINE_MESSAGE_BEGIN_DELIMITERS = [
     'Message header follows',
 ]
 INLINE_MESSAGE_BEGIN_DELIMITERS_PATTERNS = [
-    '[-\s]*{}[\s-]*'.format(d) for d in INLINE_MESSAGE_BEGIN_DELIMITERS]
-INLINE_MESSAGE_END_DELIMITER_PATTERN = '[-\s]*End of message[\s-]*'
+    r"[-\s]*{}[\s-]*".format(d) for d in INLINE_MESSAGE_BEGIN_DELIMITERS
+]
+INLINE_MESSAGE_END_DELIMITER_PATTERN = r"[-\s]*End of message[\s-]*"
+
 
 
 class BounceEmail:
@@ -46,7 +48,7 @@ class BounceEmail:
         subject_patterns = [
             re.compile('(returned|undelivered) mail|mail delivery( failed)?|(delivery )(status notification|failure)|failure notice|undeliver(able|ed)( mail)?|return(ing message|ed) to sender', re.IGNORECASE),
             re.compile('auto.*reply|vacation|vocation|(out|away).*office|on holiday|abwesenheits|autorespond|Automatische|eingangsbestätigung', re.IGNORECASE),
-            re.compile('^(MAILER-DAEMON|POSTMASTER)\@', re.IGNORECASE),
+            re.compile(r"^(MAILER-DAEMON|POSTMASTER)\@", re.IGNORECASE),
         ]
         for pattern in subject_patterns:
             subject = self.email.get('Subject', '')
@@ -81,7 +83,7 @@ class BounceEmail:
                 return k
 
         if self.email.is_multipart():
-            pattern = re.compile('(Status:.|550 |#)([245]\.[0-9]{1,3}\.[0-9]{1,3})')
+            pattern = re.compile(r"(Status:.|550 |#)([245]\.[0-9]{1,3}\.[0-9]{1,3})")
             for index, part in enumerate(self.email.get_payload()):
                 # print '{}: {}'.format(index, part.get_content_type())
                 if 'delivery-status' in part.get_content_type():   # message/delivery-status
@@ -108,7 +110,7 @@ class BounceEmail:
             return pattern.search(email_str)
 
         # check for 5.2.2
-        status_522 = ['mailbox is full|Mailbox quota (usage|disk) exceeded|quota exceeded|Over quota|User mailbox exceeds allowed size|Message rejected\. Not enough storage space|user has exhausted allowed storage space|too many messages on the server|mailbox is over quota|mailbox exceeds allowed size',
+        status_522 = [r"mailbox is full|Mailbox quota (usage|disk) exceeded|quota exceeded|Over quota|User mailbox exceeds allowed size|Message rejected\. Not enough storage space|user has exhausted allowed storage space|too many messages on the server|mailbox is over quota|mailbox exceeds allowed size",
                       'This is a permanent error']
         matches = map(search, status_522)
         if None not in matches:
@@ -157,7 +159,7 @@ class BounceEmail:
             ('5.2.0', 'The account or domain may not exist, they may be blacklisted, or missing the proper dns entries.'),
             ('5.5.4', '554 TRANSACTION FAILED'),
             ('4.4.1', "Status: 4.4.1|delivery temporarily suspended|wasn't able to establish an SMTP connection"),
-            ('5.5.0', '550 OU\-002|Mail rejected by Windows Live Hotmail for policy reasons'),
+            ('5.5.0', r"550 OU\-002|Mail rejected by Windows Live Hotmail for policy reasons"),
             ('5.1.2', 'PERM_FAILURE: DNS Error: Domain name not found'),
             ('4.2.0', 'Delivery attempts will continue to be made for'),
             ('5.5.4', '554 delivery error:'),
